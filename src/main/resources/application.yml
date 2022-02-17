@@ -1,0 +1,18 @@
+spring:
+  #database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/dev
+    username: dev
+    password: dev
+  jpa:
+    hibernate:      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:      hibernate:
+        jdbc:
+          time_zone: UTC      
+server:
+  port: 8082
+  servlet:    context-path: /api/v1.0/
