@@ -17,7 +17,7 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-
+	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
 		ResponseEntity<List<User>> response = null;
