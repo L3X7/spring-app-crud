@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   #database
   datasource:
     driver-class-name: org.postgresql.Driver
