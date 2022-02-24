@@ -10,5 +10,13 @@ import com.example.demo.dto.model.UserDto;
 public interface IUserService {
 
 	List<UserDto> getAllUsers();
+	
+	UserDto get(int id);
+	
+	UserDto add(UserDto user);
+	
+	UserDto update(UserDto user);
+	
+	boolean delete(int id);
 
 }

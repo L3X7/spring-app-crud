@@ -1,11 +1,11 @@
 spring:
   mvc:
     pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+      matching-strategy: ANT_PATH_MATCHER 
   #database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/dev
+    url: jdbc:postgresql://localhost:5433/dev
     username: dev
     password: dev
   jpa:
