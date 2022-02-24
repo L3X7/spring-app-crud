@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.model.UserDto;
-import com.example.demo.model.User;
 import com.example.demo.service.User.IUserService;
-import com.example.demo.util.MapStructMapper;
 
+import io.swagger.annotations.Api;
+
+
+@Api(value = "User Controller", description = "REST API for User")
 @RestController
 @RequestMapping("user")
 public class UserController {
