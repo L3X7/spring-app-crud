@@ -4,8 +4,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.model.UserDto;
@@ -49,8 +52,10 @@ public class UserService implements IUserService {
 	public UserDto add(UserDto user) {
 		UserDto userDto = null;
 		try {
-			User userEntity = convertUserDtoToUser(user);
-			userEntity = repository.save(userEntity);
+			User userEntity = mapstructMapper.userDtoToUser(user);
+			Timestamp createdDate = new Timestamp(System.currentTimeMillis());
+			userEntity.setCreatedOn(createdDate);
+			repository.save(userEntity);
 			userDto = mapstructMapper.userToUserDto(userEntity);
 		} catch (Exception e) {
 			throw e;
@@ -58,18 +63,18 @@ public class UserService implements IUserService {
 
 		return userDto;
 	}
-	
+
 	@Override
 	public UserDto update(UserDto userDto) {
 		Optional<User> entity = repository.findById(userDto.getId());
-		if(entity.isPresent()) {
+		if (entity.isPresent()) {
 			User eu = entity.get();
-			mapstructMapper.updateUserFromUserDto(userDto, eu);			
+			mapstructMapper.updateUserFromUserDto(userDto, eu);
 			Timestamp updatedDate = new Timestamp(System.currentTimeMillis());
 			eu.setModifiedOn(updatedDate);
 			try {
 				repository.save(eu);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				throw e;
 			}
 			userDto = mapstructMapper.userToUserDto(eu);
@@ -78,27 +83,26 @@ public class UserService implements IUserService {
 		}
 		return userDto;
 	}
-	
+
 	@Override
 	public boolean delete(int id) {
 		Optional<User> entityTemp = repository.findById(id);
-		if(entityTemp.isPresent()) {
+		if (entityTemp.isPresent()) {
 			repository.deleteById(id);
 			return true;
 		}
 		return false;
 	}
-	
-	private User convertUserDtoToUser(UserDto user) {
-		User uf = new User();
-		uf.setUsername(user.getUsername());
-		uf.setPassword(user.getPassword());
-		uf.setEmail(user.getEmail());
-		Timestamp createdDate = new Timestamp(System.currentTimeMillis());
-		uf.setCreatedOn(createdDate);
-		return uf;
+
+	@Override
+	public User findByUsername(String username) {
+		Optional<User> entity = repository.findByUsername(username);
+		if (entity.isEmpty()) {
+			return null;
+		}
+		User user = entity.get();
+		return user;
+
 	}
-
-
 
 }

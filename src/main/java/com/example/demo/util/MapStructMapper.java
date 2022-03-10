@@ -15,6 +15,7 @@ public interface MapStructMapper {
 
 	//User
 	UserDto userToUserDto(User user);
+	User userDtoToUser(UserDto user);
 	List<UserDto> listUsersToListUsersDto(List<User> users);
 	void updateUserFromUserDto(UserDto userDto, @MappingTarget User entity);
 	

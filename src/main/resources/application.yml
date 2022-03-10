@@ -1,3 +1,7 @@
+jwt:
+  secret: "*****"
+  
+
 spring:
   mvc:
     pathmatch:
